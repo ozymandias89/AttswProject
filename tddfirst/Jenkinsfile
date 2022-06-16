@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('clone repository') {
+            steps { 
+            	echo 'checkout repository...'
+                checkout([$class: 'GitSCM', branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[credentialsId: '727f0169-14e4-499d-b0a9-ab8dce26bdc3', url: 'https://github.com/Banjoman93/doctorpatients.git']]])
+            	echo 'finished checkout repository...'
+            	bat "dir"
+            }
+        }
+        stage('Compile') {
+        	steps {
+        		echo "compiling.."
+  					  	withMaven {
+   				   			bat "mvn compile"
+    					}
+  			}	
+        }
+        stage('Test') {
+            steps {
+                bat "mvn test"
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
+}

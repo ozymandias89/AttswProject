@@ -1,0 +1,16 @@
+/**
+ * Firma di metodo Patient
+ */
+package com.example.tddfirst.repository;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.example.tddfirst.entities.Doctor;
+
+/**
+ * @author Banjoman
+ *
+ */
+public interface DoctorRepository extends MongoRepository<Doctor, String> {
+	Doctor findBySurName(String surName); // Ritorna lista dei dottori dal cognome
+}
