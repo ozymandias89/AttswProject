@@ -5,7 +5,7 @@ pipeline {
         stage('clone repository') {
             steps { 
             	echo 'checkout repository...'
-                checkout([$class: 'GitSCM', branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[credentialsId: '727f0169-14e4-499d-b0a9-ab8dce26bdc3', url: 'https://github.com/Banjoman93/doctorpatients.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'git_credentials', url: 'https://github.com/Banjoman93/doctorpatients.git']]])
             	echo 'finished checkout repository...'
             	bat "dir"
             }
