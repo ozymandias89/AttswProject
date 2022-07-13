@@ -1,32 +1,61 @@
 pipeline {
     agent any
+    tools { 
+        maven 'Maven 3.6.2' 
+        jdk 'JDK12'
+    }
+
 
     stages {
+         stage ('JDK_version') {
+                steps {
+                    bat 'java -version'
+                }
+            }
+        
+        
         stage('clone repository') {
             steps { 
             	echo 'checkout repository...'
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'git_credentials', url: 'https://github.com/Banjoman93/doctorpatients.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'sshcredentials', url: 'git@github.com:Banjoman93/AttswProject.git']]])
             	echo 'finished checkout repository...'
             	bat "dir"
             }
         }
-        stage('Compile') {
-        	steps {
-        		echo "compiling.."
-  					  	withMaven {
-   				   			bat "mvn compile"
-    					}
-  			}	
-        }
-        stage('Test') {
-            steps {
-                bat "mvn test"
+        
+        stage('run test with maven') {
+            steps { 
+                dir('tddfirst'){
+                	echo 'running tests...'
+                    bat 'mvn -B --no-transfer-progress test'
+                    echo 'finished mvn tests'
+                }
             }
         }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+        
+        stage('build jar with maven') {
+            steps { 
+                dir('tddfirst'){
+                	echo 'initialize build jar...'
+                    bat 'mvn -B --no-transfer-progress clean package'
+                    echo 'finished mvn buil package.'
+                	bat "dir"
+                }
             }
         }
-    }
+        
+//        stage('build docker image') {
+//            steps {
+//                sh 'docker --version'
+//                dir('tdd'){
+//            	    echo 'build docker image...'
+//                    script {
+//                        textcategorizerImg = docker.build("path/Dockerfile")
+//                    }
+//            	    echo 'finish build docker image...'
+//                }
+//            }
+//        }
+      } 
+    
 }

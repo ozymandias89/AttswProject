@@ -15,7 +15,7 @@ import com.example.tddfirst.services.DoctorService;
 import com.example.tddfirst.services.PatientService;
 	
 @SpringBootTest
-class TddfirstApplicationTestsDoctor {
+class TddfirstApplicationDoctorTest {
     @Autowired
     private DoctorService doctorService;
     

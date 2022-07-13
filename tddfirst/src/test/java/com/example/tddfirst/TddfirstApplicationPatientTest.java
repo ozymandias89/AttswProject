@@ -12,7 +12,7 @@ import com.example.tddfirst.entities.Patient;
 import com.example.tddfirst.services.PatientService;
 
 @SpringBootTest
-class TddfirstApplicationTestsPatient {
+class TddfirstApplicationPatientTest {
     @Autowired
     private PatientService patientService;   // classe bean istanziata con nome oggetto repository
     
