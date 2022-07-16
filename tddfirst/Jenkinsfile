@@ -44,18 +44,27 @@ pipeline {
             }
         }
         
-//        stage('build docker image') {
-//            steps {
-//                sh 'docker --version'
-//                dir('tdd'){
-//            	    echo 'build docker image...'
-//                    script {
-//                        textcategorizerImg = docker.build("path/Dockerfile")
-//                    }
-//            	    echo 'finish build docker image...'
-//                }
-//            }
-//        }
+        
+        stage('SonarQube Analysis') {
+            steps {
+                dir('tddfirst'){
+                        bat "mvn sonar:sonar -Dsonar.projectKey=tddfirst_def -Dsonar.host.url=http://localhost:9000 -Dsonar.login=21bfd354d7de364f652e16e5eabc306449d32b4c"
+                }
+            }
+        }
+        
+        stage('build docker image') {
+            steps {
+                bat 'docker --version'
+                dir('tddfirst'){
+            	    echo 'build docker image...'
+                    script {
+                        textcategorizerImg = docker.build("myimage")
+                    }
+            	    echo 'finish build docker image...'
+                }
+            }
+        }
       } 
     
 }
