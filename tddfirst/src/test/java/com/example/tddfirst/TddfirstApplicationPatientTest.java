@@ -43,6 +43,16 @@ class TddfirstApplicationPatientTest {
     }
     
     @Test
+    public void PatientModifySetFirstName() {
+		patientService.save(new Patient("Orazio", "Picentini", 5));
+        Patient patient = patientService.findBySurName("Picentini");
+        patient.setFirstName("Claudio");
+        patient.setSurName("Gottardo");
+		assertEquals("Claudio", patient.getFirstName());
+		assertEquals("Gottardo", patient.getSurName());
+    }
+    
+    @Test
     public void PatientDelete() {
 		patientService.save(new Patient("Orazio", "Picentini", 5));
 		Patient patient = patientService.findBySurName("Picentini");
