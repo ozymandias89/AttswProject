@@ -17,9 +17,9 @@ public class Doctor {
     @Id
     public String id;
 
-    public static String firstName;
+    public String firstName;
 
-    public static String surName;
+    public String surName;
 
     public List<Patient> patients;
 
