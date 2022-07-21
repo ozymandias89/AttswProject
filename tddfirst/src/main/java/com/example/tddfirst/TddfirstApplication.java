@@ -32,12 +32,12 @@ public class TddfirstApplication implements CommandLineRunner {
 		repository.save(new Patient("Giorgio", "Picci", 12));
 
 		// fetch all patients
-		System.out.println("Patients found with findAll():");
-		System.out.println("-------------------------------");
+		logger.info("Patients found with findAll():");
+		logger.info("-------------------------------");
 		for (Patient patient : repository.findAll()) {
-			System.out.println(patient);
+			logger.info(patient.toString());
 		}
-		System.out.println();
+		logger.info("End Program");
 
 	}
 }
