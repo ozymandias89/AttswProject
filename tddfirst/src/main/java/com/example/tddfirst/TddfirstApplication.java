@@ -7,9 +7,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.tddfirst.entities.Patient;
 import com.example.tddfirst.repository.PatientsRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @SpringBootApplication
 public class TddfirstApplication implements CommandLineRunner {
+	private static final Logger logger = LoggerFactory.getLogger(TddfirstApplication.class);
+	
 	@Autowired
 	private PatientsRepository repository;
 
@@ -19,6 +24,7 @@ public class TddfirstApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		logger.info("Start Program");
 		repository.deleteAll();
 		repository.save(new Patient("Orazio", "Picentini", 5));
 		repository.save(new Patient("Alberto", "Fumagalli", 2));
