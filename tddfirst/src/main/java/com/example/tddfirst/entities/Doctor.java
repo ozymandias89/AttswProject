@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.example.tddfirst.entities;
 
 import org.springframework.data.annotation.Id;
