@@ -25,7 +25,7 @@ class TddfirstApplicationPatientTest {
     }
 
     @Test
-    public void PatientInsert() {
+    void PatientInsert() {
         patientService.save(new Patient("Orazio", "Picentini", 5));
         assertEquals("Orazio", patientService.findBySurName("Picentini").firstName);	// trova i pazienti con nome Orazio
         assertEquals("Picentini", patientService.findBySurName("Picentini").surName);	// trova i pazienti con cognome "Picentini
@@ -33,7 +33,7 @@ class TddfirstApplicationPatientTest {
     }
 
     @Test
-    public void PatientModify() {
+    void PatientModify() {
 		patientService.save(new Patient("Orazio", "Picentini", 5));
         Patient patient = patientService.findBySurName("Picentini");					// accedo al repository e chiedo entita paziente
         patient.setVacancyDays(6);													// setto il valore del paziente e lo modifico
@@ -43,7 +43,7 @@ class TddfirstApplicationPatientTest {
     }
     
     @Test
-    public void PatientModifySetFirstName() {
+    void PatientModifySetFirstName() {
 		patientService.save(new Patient("Orazio", "Picentini", 5));
         Patient patient = patientService.findBySurName("Picentini");
         patient.setFirstName("Claudio");
@@ -53,7 +53,7 @@ class TddfirstApplicationPatientTest {
     }
     
     @Test
-    public void PatientDelete() {
+    void PatientDelete() {
 		patientService.save(new Patient("Orazio", "Picentini", 5));
 		Patient patient = patientService.findBySurName("Picentini");
 		patientService.delete(patient);													//delete patient

@@ -29,13 +29,13 @@ class TddfirstApplicationDoctorTest {
     }
 
     @Test
-    public void DoctorInsert() {
+    void DoctorInsert() {
         doctorService.save(new Doctor("Gaia", "Pittella"));
         assertEquals("Gaia", doctorService.findBySurName("Pittella").firstName);
     }
 
     @Test
-    public void DoctorModify() {
+    void DoctorModify() {
         doctorService.save(new Doctor("Gaia", "Pittella"));
         Doctor doctor = doctorService.findBySurName("Pittella");
         doctor.setFirstName("Ugo");
@@ -45,7 +45,7 @@ class TddfirstApplicationDoctorTest {
     }
 
     @Test
-    public void DoctorDelete() {
+    void DoctorDelete() {
         doctorService.save(new Doctor("Gaia", "Pittella"));
         Doctor doctor = doctorService.findBySurName("Pittella");
         doctorService.delete(doctor);
@@ -53,7 +53,7 @@ class TddfirstApplicationDoctorTest {
     }
     
     @Test
-    public void DoctorPatient() {
+    void DoctorPatient() {
     	//insert doctor
     	doctorService.save(new Doctor("Gaia", "Pittella"));
         Doctor doctor = doctorService.findBySurName("Pittella");
