@@ -17,20 +17,25 @@ public class Clinic {
     @Id
     public String id;
 
-    public String firstName;
+    private String firstName;
 
-    public List<Doctor> doctor;
+    private final List<Doctor> doctor;
 
     public Clinic(String firstName) {								// viene inizializzato l'oggetto "Clinic" con questa chiamata
         this.firstName = firstName;
-		this.doctor = new ArrayList<Doctor>();
-    }
+		this.doctor = new ArrayList<>();
+		}
 
     public String getId() {
         return id;
+        
     }
 
-    public void setId(String id) {
+    public List<Doctor> getDoctor() {
+		return doctor;
+	}
+
+	public void setId(String id) {
         this.id = id;
     }
 

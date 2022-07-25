@@ -3,6 +3,9 @@ package com.example.tddfirst;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +34,14 @@ class TddfirstApplicationDoctorTest {
     @Test
     void DoctorInsert() {
         doctorService.save(new Doctor("Gaia", "Pittella"));
-        assertEquals("Gaia", doctorService.findBySurName("Pittella").firstName);
+        assertEquals("Gaia", doctorService.findBySurName("Pittella").getFirstName() );
+    }
+    
+    @Test
+    void DoctorsInsert() {
+         doctorService.save(new Doctor("Ugo", "Ferrari"));
+         doctorService.save(new Doctor("Ugo", "Pittella"));
+         assertEquals(2, doctorService.findByFirstName("Ugo").size());
     }
 
     @Test
@@ -42,6 +52,17 @@ class TddfirstApplicationDoctorTest {
         doctorService.save(doctor);
         doctor = doctorService.findBySurName("Pittella");
         assertEquals(doctor.getFirstName(), "Ugo");
+    }
+    
+    @Test
+    void DoctorModify2() {
+        doctorService.save(new Doctor("Gaia", "Pittella"));
+        Doctor doctor = doctorService.findBySurName("Pittella");
+        doctor.setSurName("Boscolo");
+        doctorService.save(doctor);
+        doctor = doctorService.findBySurName("Boscolo");
+        assertEquals(doctor.getSurName(), "Boscolo");
+        assertTrue(doctor.toString().contains("firstName='Gaia', surName='Boscolo'"));
     }
 
     @Test
@@ -68,6 +89,7 @@ class TddfirstApplicationDoctorTest {
         
         doctor = doctorService.findBySurName("Pittella");
         assertTrue(doctor.checkPatient(patient.getSurName()));
+        assertFalse(doctor.checkPatient("Lavalle"));
        
     }
    

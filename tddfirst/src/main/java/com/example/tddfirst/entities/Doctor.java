@@ -12,13 +12,13 @@ import java.util.List;
 
 public class Doctor {
     @Id
-    public String id;
+    private String id;
 
-    public String firstName;
+    private String firstName;
 
-    public String surName;
+    private String surName;
 
-    public List<Patient> patients;
+    private List<Patient> patients;
 
     public Doctor(String firstName, String surName) {								// viene inizializzato l'oggetto "Doctor" con questa chiamata
         this.firstName = firstName;

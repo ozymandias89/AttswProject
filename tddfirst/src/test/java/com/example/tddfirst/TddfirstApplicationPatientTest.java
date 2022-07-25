@@ -3,6 +3,8 @@ package com.example.tddfirst;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,16 @@ class TddfirstApplicationPatientTest {
         assertEquals("Picentini", patientService.findBySurName("Picentini").surName);	// trova i pazienti con cognome "Picentini
         assertEquals(5, patientService.findBySurName("Picentini").vacancyDays);			// trova i pazienti con giorni di riposo 5
     }
+    
+    @Test
+    void PatientsInsert() {
+        patientService.save(new Patient("Orazio", "Picentini", 5));
+        patientService.save(new Patient("Orazio", "Grossato", 6));
+        List<Patient> patients = patientService.findByFirstName("Orazio");	// trova i pazienti con nome Orazio
+        assertEquals(2, patients.size());	
+        
+    }
+
 
     @Test
     void PatientModify() {
@@ -53,7 +65,7 @@ class TddfirstApplicationPatientTest {
     }
     
     @Test
-    void PatientDelete() {
+     void PatientDelete() {
 		patientService.save(new Patient("Orazio", "Picentini", 5));
 		Patient patient = patientService.findBySurName("Picentini");
 		patientService.delete(patient);													//delete patient

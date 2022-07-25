@@ -35,7 +35,7 @@ public class TddfirstApplication implements CommandLineRunner {
 		logger.info("Patients found with findAll():");
 		logger.info("-------------------------------");
 		for (Patient patient : repository.findAll()) {
-			logger.info(patient.toString());
+			logger.info("{}",patient.toString());
 		}
 		logger.info("End Program");
 
