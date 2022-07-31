@@ -4,7 +4,7 @@
 package com.example.tddfirst.entities;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
+//import org.springframework.data.annotation.Transient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +22,9 @@ public class Clinic {
 
     private final List<Doctor> doctor;
 
-    public Clinic(String firstName) {								// viene inizializzato l'oggetto "Clinic" con questa chiamata
+    public Clinic(String firstName, List<Doctor> doctor) {								// viene inizializzato l'oggetto "Clinic" con questa chiamata
         this.firstName = firstName;
-		this.doctor = new ArrayList<>();
+		this.doctor = doctor;
 		}
 
     public String getId() {
@@ -49,10 +49,10 @@ public class Clinic {
     }
 
     public void insertDoctor(Doctor doctor) {
-		this.doctor.add(doctor);
+		this.setDoctor(doctor);
     }
    
-    @Transient
+    //@Transient
     public void setDoctor(Doctor doctor) {
 		this.doctor.add(doctor);
     }

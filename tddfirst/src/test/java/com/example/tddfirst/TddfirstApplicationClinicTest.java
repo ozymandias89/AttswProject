@@ -28,7 +28,7 @@ class TddfirstApplicationClinicTest {
 
     @Test
     void ClinicInsert() {
-        clinicServiceServiceImpl.save(new Clinic("Radiology"));
+        clinicServiceServiceImpl.save(new Clinic("Radiology", null));
         assertEquals("Radiology", clinicServiceServiceImpl.findByFirstName("Radiology").getFirstName());
     }
     
@@ -39,7 +39,7 @@ class TddfirstApplicationClinicTest {
     
     @Test
     void insertDoctor() {
-        clinicServiceServiceImpl.save(new Clinic("Radiology"));
+        clinicServiceServiceImpl.save(new Clinic("Radiology", null));
         Clinic clinic = clinicServiceServiceImpl.findByFirstName("Radiology");
         clinic.insertDoctor(new Doctor("Ugo","Sghella"));
         assertEquals(1, clinic.getDoctor().size());
@@ -50,7 +50,7 @@ class TddfirstApplicationClinicTest {
     @Test
     void removeDoctor() {
     	//CREAZIONE E INSERIMENTO
-    	clinicServiceServiceImpl.save(new Clinic("Radiology"));
+    	clinicServiceServiceImpl.save(new Clinic("Radiology", null));
         Clinic clinic= clinicServiceServiceImpl.findByFirstName("Radiology");
         clinic.insertDoctor(new Doctor ("Ugo", "Sghella"));
         
@@ -65,7 +65,7 @@ class TddfirstApplicationClinicTest {
 
     @Test
     void ClinicModify() {
-        clinicServiceServiceImpl.save(new Clinic("Radiology"));
+        clinicServiceServiceImpl.save(new Clinic("Radiology", null));
         assertEquals("Radiology", clinicServiceServiceImpl.findByFirstName("Radiology").getFirstName());
         Clinic clinic = clinicServiceServiceImpl.findByFirstName("Radiology");
         clinic.setFirstName("Cardiology");
@@ -75,7 +75,7 @@ class TddfirstApplicationClinicTest {
 
     @Test
     void ClinicDelete() {
-        clinicServiceServiceImpl.save(new Clinic("Radiology"));
+        clinicServiceServiceImpl.save(new Clinic("Radiology", null));
         Clinic clinic= clinicServiceServiceImpl.findByFirstName("Radiology");
         clinicServiceServiceImpl.delete(clinic);
         assertNull(clinicServiceServiceImpl.findByFirstName("Radiology"));							//il test sarà corretto solo se passerà l'assertNull (non ci dovrà essere nessun dottore all'interno del repository con il cognome richiesto)
