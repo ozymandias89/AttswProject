@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Collections;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ class TddfirstApplicationClinicTest {
 
     @Test
     void ClinicInsert() {
-        clinicServiceServiceImpl.save(new Clinic("Radiology", null));
+        clinicServiceServiceImpl.save(new Clinic("Radiology", Collections.<Doctor>emptyList()));
         assertEquals("Radiology", clinicServiceServiceImpl.findByFirstName("Radiology").getFirstName());
     }
     
@@ -39,7 +41,7 @@ class TddfirstApplicationClinicTest {
     
     @Test
     void insertDoctor() {
-        clinicServiceServiceImpl.save(new Clinic("Radiology", null));
+        clinicServiceServiceImpl.save(new Clinic("Radiology", Collections.<Doctor>emptyList()));
         Clinic clinic = clinicServiceServiceImpl.findByFirstName("Radiology");
         clinic.insertDoctor(new Doctor("Ugo","Sghella"));
         assertEquals(1, clinic.getDoctor().size());
@@ -50,7 +52,7 @@ class TddfirstApplicationClinicTest {
     @Test
     void removeDoctor() {
     	//CREAZIONE E INSERIMENTO
-    	clinicServiceServiceImpl.save(new Clinic("Radiology", null));
+    	clinicServiceServiceImpl.save(new Clinic("Radiology", Collections.<Doctor>emptyList()));
         Clinic clinic= clinicServiceServiceImpl.findByFirstName("Radiology");
         clinic.insertDoctor(new Doctor ("Ugo", "Sghella"));
         
@@ -65,7 +67,7 @@ class TddfirstApplicationClinicTest {
 
     @Test
     void ClinicModify() {
-        clinicServiceServiceImpl.save(new Clinic("Radiology", null));
+        clinicServiceServiceImpl.save(new Clinic("Radiology", Collections.<Doctor>emptyList()));
         assertEquals("Radiology", clinicServiceServiceImpl.findByFirstName("Radiology").getFirstName());
         Clinic clinic = clinicServiceServiceImpl.findByFirstName("Radiology");
         clinic.setFirstName("Cardiology");
@@ -75,7 +77,7 @@ class TddfirstApplicationClinicTest {
 
     @Test
     void ClinicDelete() {
-        clinicServiceServiceImpl.save(new Clinic("Radiology", null));
+        clinicServiceServiceImpl.save(new Clinic("Radiology", Collections.<Doctor>emptyList()));
         Clinic clinic= clinicServiceServiceImpl.findByFirstName("Radiology");
         clinicServiceServiceImpl.delete(clinic);
         assertNull(clinicServiceServiceImpl.findByFirstName("Radiology"));							//il test sarà corretto solo se passerà l'assertNull (non ci dovrà essere nessun dottore all'interno del repository con il cognome richiesto)
