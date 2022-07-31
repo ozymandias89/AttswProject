@@ -5,6 +5,7 @@ package com.example.tddfirst.entities;
 
 import org.springframework.data.annotation.Id;
 //import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Clinic {
 
     private String firstName;
 
+    @DBRef
     private final List<Doctor> doctor;
 
     public Clinic(String firstName, List<Doctor> doctor) {								// viene inizializzato l'oggetto "Clinic" con questa chiamata

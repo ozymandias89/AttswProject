@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collections;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import com.example.tddfirst.entities.Clinic;
 import com.example.tddfirst.entities.Doctor;
 import com.example.tddfirst.repository.ClinicRepository;
 import com.example.tddfirst.services.ClinicService;
+import com.example.tddfirst.services.DoctorService;
 import com.example.tddfirst.services.DoctorServiceImpl;
 @SpringBootTest
 class TddfirstApplicationClinicTest {
@@ -22,10 +24,14 @@ class TddfirstApplicationClinicTest {
     private ClinicRepository clinicServiceRepository;
     @Autowired
     private ClinicService clinicServiceServiceImpl;
+    @Autowired
+    private DoctorService doctorService;
 
     @BeforeEach																		//annotazione che dice al framework spring di eseguire ogni volta che deve eseguire un test di unità "prima di eseguire questo test esegui contentload"
+    @AfterEach // in questo modo ogni test è atomico e non sporchi il DB
     void contextLoads() {
         clinicServiceRepository.deleteAll();
+        doctorService.deleteAll();
     }
 
     @Test
@@ -43,25 +49,35 @@ class TddfirstApplicationClinicTest {
     void insertDoctor() {
         clinicServiceServiceImpl.save(new Clinic("Radiology", Collections.<Doctor>emptyList()));
         Clinic clinic = clinicServiceServiceImpl.findByFirstName("Radiology");
-        clinic.insertDoctor(new Doctor("Ugo","Sghella"));
-        assertEquals(1, clinic.getDoctor().size());
-        Doctor doctor = clinic.getDoctor().get(0);
-        assertTrue(doctor.toString().contains(""));
+        Doctor doctorToInsert = new Doctor("Ugo","Sghella Curcio");
+        doctorService.save(doctorToInsert);
+        Doctor doctor = doctorService.findBySurName(doctorToInsert.getSurName());
+        Clinic clinicToCheck = clinicServiceServiceImpl.insertDoctor(clinic, doctor);
+        assertEquals(1, clinicToCheck.getDoctor().size());
+        Doctor doctorToFind = clinicToCheck.getDoctor().get(0);
+        assertTrue(doctorToFind.toString().contains(""));
     }
     
     @Test
     void removeDoctor() {
     	//CREAZIONE E INSERIMENTO
+    	
     	clinicServiceServiceImpl.save(new Clinic("Radiology", Collections.<Doctor>emptyList()));
         Clinic clinic= clinicServiceServiceImpl.findByFirstName("Radiology");
-        clinic.insertDoctor(new Doctor ("Ugo", "Sghella"));
+        doctorService.save(new Doctor("Ugo","Sghella Ciao"));
+        Doctor doctor = doctorService.findBySurName("Sghella Ciao");
+        clinic.insertDoctor(doctor);
+        clinicServiceServiceImpl.save(clinic);
         
         //RECUPERO DOTTORE E SUA CANCELLAZIONE
-        Doctor doctor = clinic.getDoctor().get(0);
-        clinic.removeDoctor(doctor.getId());
+        Doctor doctorToRemove = clinic.getDoctor().get(0);
+        clinic.removeDoctor(doctorToRemove.getId());
         
         //ASSERT
         assertEquals(0, clinic.getDoctor().size());
+        doctorService.delete(doctor);
+        clinicServiceServiceImpl.delete(clinic);
+        
     }
 
 
@@ -80,7 +96,8 @@ class TddfirstApplicationClinicTest {
         clinicServiceServiceImpl.save(new Clinic("Radiology", Collections.<Doctor>emptyList()));
         Clinic clinic= clinicServiceServiceImpl.findByFirstName("Radiology");
         clinicServiceServiceImpl.delete(clinic);
-        assertNull(clinicServiceServiceImpl.findByFirstName("Radiology"));							//il test sarà corretto solo se passerà l'assertNull (non ci dovrà essere nessun dottore all'interno del repository con il cognome richiesto)
+        assertNull(clinicServiceServiceImpl.findByFirstName("Radiology"));							
+        //il test sarà corretto solo se passerà l'assertNull (non ci dovrà essere nessun dottore all'interno del repository con il cognome richiesto)
     }
 
     

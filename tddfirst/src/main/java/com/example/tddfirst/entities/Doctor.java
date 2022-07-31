@@ -1,6 +1,7 @@
 package com.example.tddfirst.entities;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public class Doctor {
 
     private String surName;
 
+    @DBRef
     private List<Patient> patients;
 
     public Doctor(String firstName, String surName) {								// viene inizializzato l'oggetto "Doctor" con questa chiamata

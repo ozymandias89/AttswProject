@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.tddfirst.entities.Clinic;
+import com.example.tddfirst.entities.Doctor;
 import com.example.tddfirst.repository.ClinicRepository;
 
 @Service
@@ -25,7 +26,13 @@ public class ClinicServiceImpl implements ClinicService {
 	@Override
 	public void delete(Clinic clinic) {
 		clinicrepository.delete(clinic);
-		
+	}
+
+	@Override
+	public Clinic insertDoctor(Clinic clinic, Doctor doctor) {
+		clinic.insertDoctor(doctor);
+		clinicrepository.save(clinic);
+		return this.findByFirstName(clinic.getFirstName());
 	}
 
 }
