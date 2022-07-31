@@ -74,6 +74,15 @@ class TddfirstApplicationDoctorTest {
     }
     
     @Test
+    void removePatient() {
+        patientService.save(new Patient("Ugo","Sghella",1));
+        Doctor doctor= doctorService.findBySurName("Pittella");
+        doctorService.delete(doctor);
+        assertNull(doctorService.findBySurName("Pittella"));							//il test sarà corretto solo se passerà l'assertNull (non ci dovrà essere nessun dottore all'interno del repository con il cognome richiesto)
+    }
+
+    
+    @Test
     void DoctorPatient() {
     	//insert doctor
     	doctorService.save(new Doctor("Gaia", "Pittella"));

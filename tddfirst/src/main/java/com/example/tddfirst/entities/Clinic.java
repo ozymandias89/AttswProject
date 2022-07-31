@@ -4,6 +4,7 @@
 package com.example.tddfirst.entities;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class Clinic {
     public List<Doctor> getDoctor() {
 		return doctor;
 	}
-
+    
 	public void setId(String id) {
         this.id = id;
     }
@@ -48,6 +49,11 @@ public class Clinic {
     }
 
     public void insertDoctor(Doctor doctor) {
+		this.doctor.add(doctor);
+    }
+   
+    @Transient
+    public void setDoctor(Doctor doctor) {
 		this.doctor.add(doctor);
     }
 

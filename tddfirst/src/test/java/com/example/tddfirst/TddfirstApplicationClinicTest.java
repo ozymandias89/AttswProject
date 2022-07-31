@@ -33,6 +33,11 @@ class TddfirstApplicationClinicTest {
     }
     
     @Test
+    void getId () {
+    	
+    }
+    
+    @Test
     void insertDoctor() {
         clinicServiceServiceImpl.save(new Clinic("Radiology"));
         Clinic clinic = clinicServiceServiceImpl.findByFirstName("Radiology");
